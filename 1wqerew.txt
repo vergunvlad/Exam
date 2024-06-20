@@ -1,0 +1,632 @@
+<Window x:Class="Polus.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Polus"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="300" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="ThreeDBorderWindow" Background="AntiqueWhite" FontSize="15">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition MinWidth="200" MaxWidth="400"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
+            <TextBlock Text="Логин:" VerticalAlignment="Top"></TextBlock>
+            <TextBox x:Name="LoginBox" Grid.Row="3" Grid.Column="1" VerticalContentAlignment="Center" Height="35" Width="200" VerticalAlignment="Bottom"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
+            <TextBlock Text="Пароль:" VerticalAlignment="Top"></TextBlock>
+            <PasswordBox x:Name="PassBox"  Height="35" Width="200" VerticalContentAlignment="Center" VerticalAlignment="Bottom"></PasswordBox>
+        </StackPanel>
+        <TextBlock Text="АВТОРИЗАЦИЯ" FontSize="20" FontWeight="Bold" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+        <Button x:Name="EnterBtn" Content="ВОЙТИ" Grid.Column="1" Grid.Row="6" Background="DimGray" Height="35" Foreground="White" Click="EnterBtn_Click" ></Button>
+        <Button x:Name="RegBtn" Content="Зарегистрироваться" Grid.Column="1" Grid.Row="8" Background="DimGray" Height="35" Foreground="White" Click="RegBtn_Click" ></Button>
+    </Grid>
+</Window>
+
+
+
+<Window x:Class="Polus.RegWIndow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Polus"
+        mc:Ignorable="d"
+        Title="RegWIndow" Height="550" Width="300" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="ThreeDBorderWindow" Background="AntiqueWhite" FontSize="15">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="170"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Text="РЕГИСТРАЦИЯ" Grid.Column="1" Grid.Row="0" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <TextBlock Height="20" Text="Фамилия"></TextBlock>
+            <TextBox x:Name="Surname" Height="25" Width="170"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="1">
+            <TextBlock Height="20" Text="Имя"></TextBlock>
+            <TextBox x:Name="Name" Height="25" Width="170"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Row="3" Grid.Column="1">
+            <TextBlock Height="20" Text="Отчество"></TextBlock>
+            <TextBox x:Name="Patronymic" Height="25" Width="170"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Row="4" Grid.Column="1">
+            <TextBlock Height="20" Text="Номер телефона"></TextBlock>
+            <TextBox x:Name="NumberBox" Height="30" Width="170"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Row="5" Grid.Column="1">
+            <TextBlock Height="20" Text="Логин"></TextBlock>
+            <TextBox x:Name="Login" Height="25" Width="170"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Row="6" Grid.Column="1">
+            <TextBlock Height="20" Text="Пароль"></TextBlock>
+            <PasswordBox x:Name="PassBox1"  Height="25" Width="170"></PasswordBox>
+        </StackPanel>
+        <StackPanel Grid.Row="7" Grid.Column="1">
+            <TextBlock Height="20" Text="Повторите пароль"></TextBlock>
+            <PasswordBox x:Name="PassBox2"  Height="25" Width="170"></PasswordBox>
+        </StackPanel>
+
+        <Button x:Name="RegBtn" Content="Зарегистрироваться" Height="30" Width="150" Background="DimGray" Foreground="White" Grid.Column="1" Grid.Row="8" Click="RegBtn_Click"></Button>
+    </Grid>
+</Window>
+
+
+
+<Window x:Class="Polus.EmployeeRegWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Polus"
+        mc:Ignorable="d"
+        Title="EmployeeRegWindow" Height="560" Width="300" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="ThreeDBorderWindow" Background="AntiqueWhite" FontSize="15">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="170"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Text="РЕГИСТРАЦИЯ" Grid.Column="1" Grid.Row="0" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <TextBlock Height="20" Text="Фамилия"></TextBlock>
+            <TextBox x:Name="Surname" Height="25" Width="170"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="1">
+            <TextBlock Height="20" Text="Имя"></TextBlock>
+            <TextBox x:Name="Name" Height="25" Width="170"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Row="3" Grid.Column="1">
+            <TextBlock Height="20" Text="Отчество"></TextBlock>
+            <TextBox x:Name="Patronymic" Height="25" Width="170"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Row="4" Grid.Column="1">
+            <TextBlock Height="20" Text="Номер телефона"></TextBlock>
+            <TextBox x:Name="NumberBox" Height="30" Width="170"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Row="5" Grid.Column="1">
+            <TextBlock Height="20" Text="Логин"></TextBlock>
+            <TextBox x:Name="Login" Height="25" Width="170"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Row="6" Grid.Column="1">
+            <TextBlock Height="20" Text="Пароль"></TextBlock>
+            <PasswordBox x:Name="PassBox1"  Height="25" Width="170"></PasswordBox>
+        </StackPanel>
+        <StackPanel Grid.Row="7" Grid.Column="1">
+            <TextBlock Height="20" Text="Повторите пароль"></TextBlock>
+            <PasswordBox x:Name="PassBox2"  Height="25" Width="170"></PasswordBox>
+        </StackPanel>
+
+        <StackPanel Grid.Row="8" Grid.Column="1">
+            <TextBlock Height="20" Text="Введите почту"></TextBlock>
+            <TextBox x:Name="Email"  Height="25" Width="170"></TextBox>
+        </StackPanel>
+
+        <StackPanel Grid.Row="9" Grid.Column="1">
+            <TextBlock Height="20" Text="Выбирите роль:"></TextBlock>
+            <ComboBox x:Name="RoleBox"  Height="25" Width="170"></ComboBox>
+        </StackPanel>
+        <Button x:Name="RegBtn" Content="Зарегистрироваться" Height="30" Width="150" Background="DimGray" Foreground="White" Grid.Column="1" Grid.Row="10" Click="RegBtn_Click"></Button>
+    </Grid>
+</Window>
+
+
+<Window x:Class="Polus.ClientWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Polus" xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="ClientWindow" Height="600" Width="1100" WindowStartupLocation="Manual" WindowStyle="ThreeDBorderWindow" Background="AntiqueWhite" FontSize="15">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" MinWidth="165"></ColumnDefinition>
+            <ColumnDefinition Width="151*"></ColumnDefinition>
+            <ColumnDefinition Width="161*"></ColumnDefinition>
+            <ColumnDefinition Width="161*"></ColumnDefinition>
+            <ColumnDefinition Width="161*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="HelloBox" Height="30" Grid.Column="0" Grid.ColumnSpan="2"  Grid.Row="0" VerticalAlignment="Top" Margin="5,10,0,0"/>
+        <DataGrid x:Name="ClientDG" Grid.Row="1" MaxWidth="1000" AutoGenerateColumns="False" IsReadOnly="True" CanUserResizeColumns="False" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="3">
+            <DataGrid.Columns>
+                <DataGridTextColumn  CanUserReorder="False" Header="Оборудование" Width="200" Binding="{Binding OrgTechType1.Name_of_type}"></DataGridTextColumn>
+                <DataGridTextColumn  CanUserReorder="False" Header="Модель" Width="auto" Binding="{Binding OrgTechModel1.Name_of_model}"></DataGridTextColumn>
+                <DataGridTextColumn  CanUserReorder="False" Header="Неисправность" Width="auto" Binding="{Binding problemDescryption}"></DataGridTextColumn>
+                <DataGridTextColumn  CanUserReorder="False" Header="Исполнитель" Width="auto" Binding="{Binding Employee.FIO}"></DataGridTextColumn>
+                <DataGridTextColumn  CanUserReorder="False" Header="Статус" Width="auto" Binding="{Binding Ticket_status1.Name_of_status}"></DataGridTextColumn>
+                <DataGridTextColumn  CanUserReorder="False" Header="Дата открытия" Width="auto" Binding="{Binding startDate}"></DataGridTextColumn>
+                <DataGridTextColumn  CanUserReorder="False" Header="Дата закрытия" Width="auto" Binding="{Binding completionDate}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <ComboBox  x:Name="Filter"  Height="40" SelectedIndex="0" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" HorizontalAlignment="Left" FontFamily="Mangal" Foreground="#474747" FontSize="18" Width="290" VerticalAlignment="Center" SelectionChanged="ComboBox_SelectionChanged">
+            <sys:String>Все</sys:String>
+            <sys:String>Новая заявка</sys:String>
+            <sys:String>В процессе ремонта</sys:String>
+            <sys:String>Готова к выдаче</sys:String>
+        </ComboBox>
+        <Button x:Name="CreateTicket" Content="Создать заявку" Height="40" Width="150" Background="DimGray" Foreground="White" Grid.Column="3" Grid.Row="4" Click="CreateTicket_Click" ></Button>
+        <Button x:Name="Return" Content="Назад" Click="Return_Click" Height="30" Width="100" Background="DimGray" Foreground="White" Grid.Column="0" Grid.Row="4"></Button>
+    </Grid>
+</Window>
+
+
+<Window x:Class="Polus.EmployeeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Polus" xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+         Title="EmployeeWindow" Height="600" Width="1100" WindowStartupLocation="Manual" WindowStyle="ThreeDBorderWindow" Background="AntiqueWhite" FontSize="15">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" MinWidth="165"></ColumnDefinition>
+            <ColumnDefinition Width="151*"></ColumnDefinition>
+            <ColumnDefinition Width="161*"></ColumnDefinition>
+            <ColumnDefinition Width="161*"></ColumnDefinition>
+            <ColumnDefinition Width="161*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="HelloBox" Height="30" Grid.Column="0"  Grid.Row="0" VerticalAlignment="Top" Margin="5,10,0,0"/>
+        <DataGrid Margin="5" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"
+      ScrollViewer.HorizontalScrollBarVisibility="Visible" x:Name="EmployeeDG" Grid.Row="1" MinWidth="800" AutoGenerateColumns="False" IsReadOnly="True" CanUserResizeColumns="False" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="3">
+            <DataGrid.Columns>
+                <DataGridTextColumn  CanUserReorder="False" Header="Оборудование" Width="200" Binding="{Binding OrgTechType1.Name_of_type}"></DataGridTextColumn>
+                <DataGridTextColumn  CanUserReorder="False" Header="Модель" Width="auto" Binding="{Binding OrgTechModel1.Name_of_model}"></DataGridTextColumn>
+                <DataGridTextColumn  CanUserReorder="False" Header="Неисправность" Width="auto" Binding="{Binding problemDescryption}"></DataGridTextColumn>
+                <DataGridTextColumn  CanUserReorder="False" Header="Клиент" Width="*" Binding="{Binding Client.FIO}"></DataGridTextColumn>
+                <DataGridTextColumn  CanUserReorder="False" Header="Дата открытия" Width="auto" Binding="{Binding startDate}"></DataGridTextColumn>
+                <DataGridTextColumn  CanUserReorder="False" Header="Статус" Width="auto" Binding="{Binding Ticket_status1.Name_of_status}"></DataGridTextColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate >
+                            <Button x:Name="ResponseBtn" Content="Ответить" Width="auto" Background="DimGray" Foreground="White" Click="ResponseBtn_Click"></Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <ComboBox  x:Name="Filter"  Height="40" SelectedIndex="0" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" HorizontalAlignment="Left" FontFamily="Mangal" Foreground="#474747" FontSize="18" Width="290" VerticalAlignment="Center" SelectionChanged="ComboBox_SelectionChanged">
+            <sys:String>Все</sys:String>
+            <sys:String>Новая заявка</sys:String>
+            <sys:String>В процессе ремонта</sys:String>
+            <sys:String>Готова к выдаче</sys:String>
+        </ComboBox>
+        <!--<Button x:Name="CreateTicket" Content="Создать заявку" Height="40" Width="150" Background="DimGray" Foreground="White" Grid.Column="3" Grid.Row="4" Click="CreateTicket_Click" ></Button>-->
+        <Button x:Name="Return" Content="Назад" Click="Return_Click" Height="30" Width="100" Background="DimGray" Foreground="White" Grid.Column="0" Grid.Row="4"></Button>
+   
+    </Grid>
+</Window>
+
+
+
+<Window x:Class="Polus.ManagerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Polus" xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+       Title="ManagerWindow" Height="600" Width="1100" WindowStartupLocation="Manual" WindowStyle="ThreeDBorderWindow" Background="AntiqueWhite" FontSize="15">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" MinWidth="165"></ColumnDefinition>
+            <ColumnDefinition Width="151*"></ColumnDefinition>
+            <ColumnDefinition Width="161*"></ColumnDefinition>
+            <ColumnDefinition Width="161*"></ColumnDefinition>
+            <ColumnDefinition Width="161*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="HelloBox" Height="30" Grid.Column="0"  Grid.Row="0" VerticalAlignment="Top" Margin="5,10,0,0"/>
+        <DataGrid Margin="5" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"
+      ScrollViewer.HorizontalScrollBarVisibility="Visible" x:Name="ManagerDG" Grid.Row="1" MinWidth="800" AutoGenerateColumns="False" IsReadOnly="True" CanUserResizeColumns="False" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="3">
+            <DataGrid.Columns>
+                <DataGridTextColumn  CanUserReorder="False" Header="Оборудование" Width="200" Binding="{Binding OrgTechType1.Name_of_type}"></DataGridTextColumn>
+                <DataGridTextColumn  CanUserReorder="False" Header="Модель" Width="auto" Binding="{Binding OrgTechModel1.Name_of_model}"></DataGridTextColumn>
+                <DataGridTextColumn  CanUserReorder="False" Header="Неисправность" Width="auto" Binding="{Binding problemDescryption}"></DataGridTextColumn>
+                <DataGridTextColumn  CanUserReorder="False" Header="Клиент" Width="auto" Binding="{Binding Client.FIO}"></DataGridTextColumn>
+                <DataGridTextColumn  CanUserReorder="False" Header="Исполнитель" Width="auto" Binding="{Binding Employee.FIO}"></DataGridTextColumn>
+                <DataGridTextColumn  CanUserReorder="False" Header="Статус" Width="auto" Binding="{Binding Ticket_status1.Name_of_status}"></DataGridTextColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate >
+                            <Button x:Name="ReportBtn" Content="Отчет" Width="auto" Background="DimGray" Foreground="White" Click="ReportBtn_Click"></Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="UpdatetBtn" Content="Изменить" Width="auto" Background="DimGray" Foreground="White" Click="UpdatetBtn_Click"></Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <ComboBox  x:Name="Filter"  Height="40"  VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" HorizontalAlignment="Left" FontFamily="Mangal" Foreground="#474747" FontSize="18" Width="290" VerticalAlignment="Center" SelectionChanged="ComboBox_SelectionChanged">
+            <sys:String>Все</sys:String>
+            <sys:String>Новая заявка</sys:String>
+            <sys:String>В процессе ремонта</sys:String>
+            <sys:String>Готова к выдаче</sys:String>
+        </ComboBox>
+        <Button x:Name="Return" Content="Назад" Click="Return_Click" Height="30" Width="100"  Grid.Column="0" Grid.Row="8" Background="DimGray" Foreground="White" ></Button>
+        <StackPanel Grid.Row="0"  Grid.Column="2" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <TextBox x:Name="Search" Height="40" Width="200" HorizontalAlignment="Left"></TextBox>
+            <Button Content="Поиск" Height="40" Width="50" HorizontalAlignment="Right" Click="Button_Click"></Button>
+        </StackPanel>
+        <Button x:Name="RegBtn" Content="Регистрация сотрудника"  Height="30" Width="180"  Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="8" Background="DimGray" Foreground="White" Click="RegBtn_Click"></Button>
+    </Grid>
+</Window>
+
+
+<Window x:Class="Polus.CreateTicketWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Polus"
+        mc:Ignorable="d"
+        Title="CreateTicketWindow" Height="550" Width="350" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="ThreeDBorderWindow" Background="AntiqueWhite" FontSize="15">
+    <Grid Margin="5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="190"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Создание заявки" Grid.Column="1" Grid.Row="0" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
+            <TextBlock Height="20" Text="Укажите тип оборудование:"></TextBlock>
+            <ComboBox x:Name="Eqip" SelectedIndex="0" Height="25" Width="250" HorizontalAlignment="Left"></ComboBox>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
+            <TextBlock Height="20" Text="Укажите модель:"></TextBlock>
+            <ComboBox x:Name="Model" SelectedIndex="0" Height="25" Width="250" HorizontalAlignment="Left"></ComboBox>
+        </StackPanel>
+        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3">
+            <TextBlock Height="20" Text="Укажите неисправность:"></TextBlock>
+            <TextBox x:Name="malfunction" Height="25" Width="250" HorizontalAlignment="Left"></TextBox>
+        </StackPanel>
+        <TextBlock Height="20" Text="Опишите проблему:" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4"></TextBlock>
+        <TextBox x:Name="Description"  Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="3" Grid.RowSpan="4"  ></TextBox>
+
+
+        <Button x:Name="CreateTickets" Content="Создать заявку" Height="30" Width="150" Background="DimGray" Foreground="White" Grid.Column="1" Grid.Row="9" Click="CreateTickets_Click"  ></Button>
+    </Grid>
+</Window>
+
+
+<Window x:Class="Polus.DestributionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Polus"
+        mc:Ignorable="d"
+        Title="DestributionWindow" Background="AntiqueWhite"  Height="450" Width="900" FontSize="15">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"></ColumnDefinition>
+            <ColumnDefinition Width="5*"></ColumnDefinition>
+            <ColumnDefinition Width="5*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Column="0" Grid.Row="0" Grid.RowSpan="4" Margin="10">
+            <StackPanel>
+                <TextBlock Text="Описание проблемы" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock x:Name="Problem" HorizontalAlignment="Left" Height="150" Width="250"></TextBlock>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Клиент" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock x:Name="Client" HorizontalAlignment="Left" Height="30" Width="250"></TextBlock>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Тип техники" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock x:Name="TechType"  HorizontalAlignment="Left" Height="30" Width="250"></TextBlock>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Модель" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock x:Name="Model" HorizontalAlignment="Left" Height="30" Width="250"></TextBlock>
+            </StackPanel>
+            
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="4" Margin="10">
+            <StackPanel>
+                <TextBlock Text="Дата открытия" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock x:Name="CreateDate" HorizontalAlignment="Left"  Height="30" Width="250"></TextBlock>
+            </StackPanel>
+            
+            <StackPanel>
+                <TextBlock Text="Исполнитель" HorizontalAlignment="Center"></TextBlock>
+                <ComboBox x:Name="MasterBox" HorizontalAlignment="Left" Height="30" Width="250"></ComboBox>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Статус" HorizontalAlignment="Left"></TextBlock>
+                <ComboBox x:Name="Status" HorizontalAlignment="Left" Height="30" Width="250">
+                    <ComboBoxItem >Новая заявка</ComboBoxItem>
+                    <ComboBoxItem >В процессе ремонта</ComboBoxItem>
+                    <ComboBoxItem >Готова к выдаче</ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+           
+            <StackPanel>
+                <TextBlock Text="Приоритет" HorizontalAlignment="Left"></TextBlock>
+                <ComboBox x:Name="Priority" HorizontalAlignment="Left" Height="30" Width="250"></ComboBox>
+        </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Дата закрытия" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock x:Name="CloseDate" HorizontalAlignment="Left" Height="30" Width="250"></TextBlock>
+            </StackPanel>
+        </StackPanel>
+        <Button Background="DimGray" Grid.Column="4" Grid.Row="3"  FontSize="18" Height="40" Foreground="White" BorderBrush="#FFACACAC" Click="Button_Click_1" >Сохранить изменения</Button>
+        <Button x:Name="Return" Content="Назад" Height="30" Width="100"  Grid.Column="0"  Grid.Row="3" Background="DimGray" Foreground="White" Click="RetBtn_Click" ></Button>
+    </Grid>
+</Window>
+
+
+<Window x:Class="Polus.ReportWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Polus"
+        mc:Ignorable="d"
+        Title="ReportWindow" Background="AntiqueWhite"  Height="450" Width="800" FontSize="15">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"></ColumnDefinition>
+            <ColumnDefinition Width="5*"></ColumnDefinition>
+            <ColumnDefinition Width="5*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Column="0" Grid.Row="0" Grid.RowSpan="4" Margin="10">
+            <StackPanel>
+                <TextBlock Text="Описание проблемы:" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock x:Name="Problem" Height="150" Width="250"></TextBlock>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Клиент:" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock x:Name="Client" Height="30" Width="250"></TextBlock>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Тип техники:" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock x:Name="TechType"  Height="30" Width="250"></TextBlock>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Модель:" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock x:Name="Model"  Height="30" Width="250"></TextBlock>
+            </StackPanel>
+
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="4" Margin="10">
+            <StackPanel>
+                <TextBlock Text="Дата открытия" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock x:Name="CreateDate"  Height="30" Width="250"></TextBlock>
+            </StackPanel>
+
+            <StackPanel>
+                <TextBlock Text="Исполнитель:" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock x:Name="MasterBox"  Height="30" Width="250"></TextBlock>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Статус:" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock x:Name="Status"  Height="30" Width="250">
+                   
+                </TextBlock>
+            </StackPanel>
+
+            <StackPanel>
+                <TextBlock Text="Приоритет:" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock x:Name="Priority"  Height="30" Width="250"></TextBlock>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Дата закрытия:" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock x:Name="CloseDate"  Height="30" Width="250"></TextBlock>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="4" Margin="10">
+            <StackPanel>
+                <TextBlock Text="Нужныя запчасти:" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock x:Name="Parts"  Height="100" Width="250"></TextBlock>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Комментарий:" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock x:Name="Comment"  Height="100" Width="250"></TextBlock>
+            </StackPanel>
+        </StackPanel>
+        <Button x:Name="Return" Content="Назад" Height="30" Width="100"  Grid.Column="0"  Grid.Row="3" Background="DimGray" Foreground="White" Click="Return_Click" ></Button>
+    </Grid>
+</Window>
+
+
+<Window x:Class="Polus.ResponseWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Polus"
+        mc:Ignorable="d"
+        Title="ResponseWindow" Background="AntiqueWhite"  Height="450" Width="800" FontSize="15">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"></ColumnDefinition>
+            <ColumnDefinition Width="5*"></ColumnDefinition>
+            <ColumnDefinition Width="5*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Column="0" Grid.Row="0" Grid.RowSpan="4" Margin="10">
+            <StackPanel>
+                <TextBlock Text="Описание проблемы:" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock x:Name="Problem" Height="150" Width="250"></TextBlock>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Клиент:" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock x:Name="Client" Height="30" Width="250"></TextBlock>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Тип техники:" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock x:Name="TechType"  Height="30" Width="250"></TextBlock>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Модель:" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock x:Name="Model"  Height="30" Width="250"></TextBlock>
+            </StackPanel>
+
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="4" Margin="10">
+            <StackPanel>
+                <TextBlock Text="Дата открытия" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock x:Name="CreateDate"  Height="30" Width="250"></TextBlock>
+            </StackPanel>
+
+            <StackPanel>
+                <TextBlock Text="Исполнитель:" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock x:Name="MasterBox"  Height="30" Width="250"></TextBlock>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Статус:" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock x:Name="Status"  Height="30" Width="250">
+
+                </TextBlock>
+            </StackPanel>
+
+            <StackPanel>
+                <TextBlock Text="Приоритет:" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock x:Name="Priority"  Height="30" Width="250"></TextBlock>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Дата закрытия:" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock x:Name="CloseDate"  Height="30" Width="250"></TextBlock>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="4" Margin="10">
+            <StackPanel>
+                <TextBlock Text="Нужныя запчасти:" HorizontalAlignment="Left"></TextBlock>
+                <TextBox x:Name="Parts"  Height="150" Width="250"></TextBox>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Комментарий:" HorizontalAlignment="Left"></TextBlock>
+                <TextBox x:Name="Comment"  Height="150" Width="250"></TextBox>
+            </StackPanel>
+        </StackPanel>
+        <Button x:Name="Return" Content="Назад" Height="30" Width="100"  Grid.Column="0"  Grid.Row="3" Background="DimGray" VerticalAlignment="Bottom" Foreground="White" Click="Return_Click" ></Button>
+        <Button Background="DimGray" Grid.Column="4" Grid.Row="3"  FontSize="18" Height="40" Foreground="White" BorderBrush="#FFACACAC" VerticalAlignment="Bottom" Click="Button_Click_1" >Сохранить изменения</Button>
+    </Grid>
+</Window>

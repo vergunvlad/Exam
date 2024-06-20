@@ -1,0 +1,861 @@
+  public static DemoExamEntities GetContext()
+        {
+            if (context == null)
+            {
+                context = new DemoExamEntities();
+
+            }
+            return context;
+        }
+
+public Client(string fIO, string number, string login, string pass1)
+        {
+            this.FIO = fIO;
+            this.Phone = number;
+            this.Login = login;
+            this.Password = pass1;
+        }
+
+
+public Employee(string fIO, string number, string login, string pass1, int role)
+        {
+            this.FIO = fIO;
+            this.Phone = number;
+            this.Login = login;
+            this.Password = pass1;
+            this.Role = role;
+        }
+
+public Ticket(DateTime createDate, int techType, int techModel, string Description, int status, object closeDate, string parts, object employee, int client, object priority)
+        {
+            this.startDate = createDate;
+            this.orgTechType = techType;
+            this.orgTechModel = techModel;
+            this.problemDescryption = Description;
+            this.Ticket_status = status;
+            this.completionDate = (DateTime?)closeDate;
+            this.repairParts = parts;
+            this.masterID = (int?)employee;
+            this.clientID = client;
+            this.Priority = (int?)priority;
+        }
+
+public Ticket_Сomment(string comment, int user_id, int ticket_id)
+        {
+            this.Message = comment;
+            this.Master_id = user_id;
+            this.Ticket_id = ticket_id;
+
+        }
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using Test;
+
+namespace Polus
+{
+    /// <summary>
+    /// Логика взаимодействия для MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        public MainWindow()
+        {
+            InitializeComponent();
+        }
+
+        private void RegBtn_Click(object sender, RoutedEventArgs e)
+        {
+            RegWIndow regWIndow = new RegWIndow();
+            this.Close();
+            regWIndow.Show();
+
+        }
+
+        private void EnterBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string password = PassBox.Password.Trim();
+            string Login = LoginBox.Text.Trim().ToLower();
+
+            Repository.ClientAuth(Login, password);
+            Repository.EmployeeAuth(Login, password);
+
+            if (Login.Length < 3 || password.Length < 3)
+            {
+                MessageBox.Show("Заполните все поля");
+            }
+            else
+            {
+                if (Repository.employee == null && Repository.client != null)
+                {
+                    ClientWindow clientWindow = new ClientWindow();
+                    this.Close();
+                    clientWindow.Show();
+                }
+                else if (Repository.employee != null&& Repository.client == null)
+                {
+                    if (Repository.employee.Role == 2)
+                    {
+                        EmployeeWindow employeeWindow = new EmployeeWindow();
+                        this.Close();
+                        employeeWindow.Show();
+                    }
+                    else if (Repository.employee.Role == 1|| Repository.employee.Role == 3)
+                    {
+                        ManagerWindow managerWindow = new ManagerWindow();
+                        this.Close();
+                        managerWindow.Show();
+                    }
+
+                    else
+                    {
+                        MessageBox.Show("Ошибка авторизации");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Ошибка авторизации");
+                }
+
+            }
+        }
+
+    }
+}
+
+
+
+using Polus;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+
+namespace Polus
+{
+    /// <summary>
+    /// Логика взаимодействия для RegWIndow.xaml
+    /// </summary>
+    public partial class RegWIndow : Window
+    {
+
+        public RegWIndow()
+        {
+            InitializeComponent();
+        }
+
+        private void RegBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string surname = Surname.Text.Trim();
+            string name = Name.Text.Trim();
+            string patronymic = Patronymic.Text.Trim();
+            string number = NumberBox.Text.Trim();
+            string login = Login.Text.Trim();
+            string pass1 = PassBox1.Password.Trim();
+            string pass2 = PassBox2.Password.Trim();
+            
+
+            if ((name.Length < 1) || (surname.Length < 1) || (patronymic.Length < 1) || (number.Length <= 5) || login.Length < 1  || (pass1.Length < 1) || (pass2.Length < 1))
+            {
+                MessageBox.Show("Заполните все поля!");
+            }
+
+            else if (pass1 != pass2)
+            {
+                MessageBox.Show("Введенные пароли должны быть одинаковыми!");
+
+            }
+            else
+            {
+                try
+                {
+
+                    string FIO = Surname.Text.Trim() + " " + Name.Text.Trim() + " " + Patronymic.Text.Trim();
+                    Client client = new Client(FIO, number, login, pass1);
+                    DemoExamEntities.GetContext().Client.Add(client);
+                    DemoExamEntities.GetContext().SaveChanges();
+                    MessageBox.Show("Пользователь успешно зарегестрирован");
+                    MainWindow mainWindow = new MainWindow();
+                    this.Close();
+                    mainWindow.Show();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                }
+            }
+        }
+
+
+    }
+}
+
+
+using Polus;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+
+
+namespace Polus
+{
+    /// <summary>
+    /// Логика взаимодействия для EmployeeRegWindow.xaml
+    /// </summary>
+    public partial class EmployeeRegWindow : Window
+    {
+        public EmployeeRegWindow()
+        {
+            InitializeComponent();
+            RoleBox.ItemsSource= DemoExamEntities.GetContext().Role.Select(x => x.Role_name).FirstOrDefault();
+        }
+
+        private void RegBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string surname = Surname.Text.Trim();
+            string name = Name.Text.Trim();
+            string patronymic = Patronymic.Text.Trim();
+            string number=NumberBox.Text.Trim();
+            string login = Login.Text.Trim();
+            string pass1 = PassBox1.Password.Trim();
+            string pass2 = PassBox2.Password.Trim();
+            
+            int role=RoleBox.SelectedIndex+1;
+            
+           
+
+            if ((name.Length < 1) || (surname.Length < 1) || (patronymic.Length < 1) || (number.Length <= 5) || login.Length < 1 || (login.Length < 1) || (pass1.Length < 1) || (pass2.Length < 1) || (RoleBox.SelectedItem==null))
+            {
+                MessageBox.Show("Заполните все поля!");
+            }
+
+            else if (pass1 != pass2)
+            {
+                MessageBox.Show("Введенные пароли должны быть одинаковыми!");
+
+            }
+            else
+            {
+                try
+                {
+                    string FIO = Surname.Text.Trim() + " " + Name.Text.Trim() + " " + Patronymic.Text.Trim();
+                    Employee employee = new Employee(FIO,number, login, pass1, role);
+                    DemoExamEntities.GetContext().Employee.Add(employee);
+                    DemoExamEntities.GetContext().SaveChanges();
+                    MessageBox.Show("Сотрудник успешно зарегестрирован");
+                    MainWindow mainWindow = new MainWindow();
+                    this.Close();
+                    mainWindow.Show();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                }
+            }
+        }
+    }
+}
+
+
+using Polus;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+using Test;
+
+namespace Polus
+
+{
+    /// <summary>
+    /// Логика взаимодействия для ClientWindow.xaml
+    /// </summary>
+    public partial class ClientWindow : Window
+    {
+        public ClientWindow()
+        {
+            InitializeComponent();
+            HelloBox.Text = "Здравствуйте, " + Repository.client.FIO;
+            ClientDG.ItemsSource = DemoExamEntities.GetContext().Ticket.Where(x => x.clientID == Repository.client.Client_id).ToList();
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (Filter.SelectedIndex != 0)
+            {
+                if (Filter.SelectedItem.ToString() == "Новая заявка")
+                {
+                    ClientDG.ItemsSource = DemoExamEntities.GetContext().Ticket.Where(x => x.Ticket_status == 1 && x.clientID == Repository.client.Client_id).ToList();
+
+                }
+                else if (Filter.SelectedItem.ToString() == "В процессе ремонта")
+                {
+                    ClientDG.ItemsSource = DemoExamEntities.GetContext().Ticket.Where(x => x.Ticket_status==2 && x.clientID == Repository.client.Client_id).ToList();
+                }
+                else if (Filter.SelectedItem.ToString() == "Готова к выдаче")
+                {
+                    ClientDG.ItemsSource = DemoExamEntities.GetContext().Ticket.Where(x => x.Ticket_status== 3 && x.clientID == Repository.client.Client_id).ToList();
+                }
+            }
+            else
+            {
+                ClientDG.ItemsSource = DemoExamEntities.GetContext().Ticket.Where(x => x.clientID == Repository.client.Client_id).ToList();
+            }
+
+        }
+
+        private void CreateTicket_Click(object sender, RoutedEventArgs e)
+        {
+            CreateTicketWindow createTicketWindow = new CreateTicketWindow();
+            this.Close();
+            createTicketWindow.Show();
+        }
+
+        private void Return_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = new MainWindow();
+            this.Close();
+            mainWindow.Show();
+        }
+    }
+}
+
+
+using Polus;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+using Test;
+
+namespace Polus
+{
+    /// <summary>
+    /// Логика взаимодействия для EmployeeWindow.xaml
+    /// </summary>
+    public partial class EmployeeWindow : Window
+    {
+        public EmployeeWindow()
+        {
+            InitializeComponent();
+            HelloBox.Text = "Здравствуйте, " + Repository.employee.FIO;
+            EmployeeDG.ItemsSource = DemoExamEntities.GetContext().Ticket.Where(x => x.masterID == Repository.employee.Employee_id).ToList();
+        }
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (Filter.SelectedIndex != 0)
+            {
+                if (Filter.SelectedItem.ToString() == "Новая заявка")
+                {
+                    EmployeeDG.ItemsSource = DemoExamEntities.GetContext().Ticket.Where(x => x.Ticket_status==1 && x.masterID == Repository.employee.Employee_id).ToList();
+
+                }
+                else if (Filter.SelectedItem.ToString() == "В процессе ремонта")
+                {
+                    EmployeeDG.ItemsSource = DemoExamEntities.GetContext().Ticket.Where(x => x.Ticket_status==2 && x.masterID == Repository.employee.Employee_id).ToList();
+                }
+                else if (Filter.SelectedItem.ToString() == "Готова к выдаче")
+                {
+                    EmployeeDG.ItemsSource = DemoExamEntities.GetContext().Ticket.Where(x => x.Ticket_status==3 && x.masterID == Repository.employee.Employee_id).ToList();
+                }
+            }
+            else
+            {
+                EmployeeDG.ItemsSource = DemoExamEntities.GetContext().Ticket.Where(x => x.masterID == Repository.employee.Employee_id).ToList();
+            }
+
+        }
+
+        private void Return_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = new MainWindow();
+            this.Close();
+            mainWindow.Show();
+        }
+
+        private void ResponseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ResponseWindow responseWindow = new ResponseWindow((sender as Button).DataContext as Ticket);
+            responseWindow.Show();
+            this.Close();
+        }
+    }
+}
+
+
+
+using Polus;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+using Test;
+
+namespace Polus
+{
+    /// <summary>
+    /// Логика взаимодействия для ManagerWindow.xaml
+    /// </summary>
+    public partial class ManagerWindow : Window
+    {
+        public ManagerWindow()
+        {
+            InitializeComponent();
+            HelloBox.Text = "Здравствуйте, " + Repository.employee.Employee_id;
+            ManagerDG.ItemsSource = DemoExamEntities.GetContext().Ticket.ToList();
+        }
+
+        private void ReportBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ReportWindow reportWindow = new ReportWindow((sender as Button).DataContext as Ticket);
+            this.Close();
+            reportWindow.Show();
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (Filter.SelectedItem != null)
+            {
+                if (Filter.SelectedItem.ToString() == "Новая заявка")
+                {
+                    ManagerDG.ItemsSource = DemoExamEntities.GetContext().Ticket.Where(x => x.Ticket_status==1).ToList();
+
+                }
+                else if (Filter.SelectedItem.ToString() == "В процессе ремонта")
+                {
+                    ManagerDG.ItemsSource = DemoExamEntities.GetContext().Ticket.Where(x => x.Ticket_status==2).ToList();
+                }
+                else if (Filter.SelectedItem.ToString() == "Готова к выдаче")
+                {
+                    ManagerDG.ItemsSource = DemoExamEntities.GetContext().Ticket.Where(x => x.Ticket_status==3).ToList();
+                }
+            }
+            else
+            {
+                ManagerDG.ItemsSource = DemoExamEntities.GetContext().Ticket.ToList();
+            }
+
+        }
+
+        private void UpdatetBtn_Click(object sender, RoutedEventArgs e)
+        {
+            DestributionWindow destribWindow = new DestributionWindow((sender as Button).DataContext as Ticket);
+            this.Close();
+            destribWindow.Show();
+        }
+
+        private void Return_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = new MainWindow();
+            this.Close();
+            mainWindow.Show();
+        }
+
+        private void RegBtn_Click(object sender, RoutedEventArgs e)
+        {
+            EmployeeRegWindow employeeRegWindow = new EmployeeRegWindow();
+            this.Close();
+            employeeRegWindow.Show();
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (Search.Text != "")
+            {
+                if (Filter.SelectedIndex != 0)
+                {
+                    ManagerDG.ItemsSource = DemoExamEntities.GetContext().Ticket.Where(x => DbFunctions.Like(x.problemDescryption, Search.Text.ToString() + "%") || DbFunctions.Like(x.OrgTechType1.Name_of_type, Search.Text.ToString() + "%") || DbFunctions.Like(x.OrgTechModel1.Name_of_model, Search.Text.ToString() + "%")&& x.Ticket_status1.Name_of_status== Filter.Text.Trim()).ToList();
+                }
+                else
+                {
+                    ManagerDG.ItemsSource = DemoExamEntities.GetContext().Ticket.Where(x => DbFunctions.Like(x.problemDescryption, Search.Text.ToString() + "%") || DbFunctions.Like(x.Ticket_status1.Name_of_status, Search.Text.ToString() + "%") || DbFunctions.Like(x.OrgTechModel1.Name_of_model, Search.Text.ToString() + "%") || DbFunctions.Like(x.OrgTechType1.Name_of_type, Search.Text.ToString() + "%")).ToList();
+                }
+            }
+            else
+            {
+                ManagerDG.ItemsSource = DemoExamEntities.GetContext().Ticket.ToList();
+            }
+        }
+    }
+
+}
+
+
+
+using Polus;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+using System.Xml.Linq;
+using Test;
+
+namespace Polus
+{
+    /// <summary>
+    /// Логика взаимодействия для CreateTicketWindow.xaml
+    /// </summary>
+    public partial class CreateTicketWindow : Window
+    {
+        public CreateTicketWindow()
+        {
+            InitializeComponent();
+            Eqip.ItemsSource = DemoExamEntities.GetContext().OrgTechType.Select(x => x.Name_of_type).ToList();
+            Model.ItemsSource = DemoExamEntities.GetContext().OrgTechModel.Select(x => x.Name_of_model).ToList();
+
+
+        }
+
+        private void CreateTickets_Click(object sender, RoutedEventArgs e)
+        {
+            string descrip = Description.Text;
+            DateTime createDate = DateTime.Now;
+            int eqipment = Eqip.SelectedIndex+1;
+            int model = Model.SelectedIndex+1;
+            int client = Repository.client.Client_id;
+
+            if (descrip.Length < 3 || eqipment==0 || model==0)
+            {
+                MessageBox.Show("Заполните все поля");
+            }
+            else
+            {
+                try
+                {
+                    Ticket ticket = new Ticket(createDate, eqipment, model, descrip, 1, null, null, null, client, null);
+                    DemoExamEntities.GetContext().Ticket.Add(ticket);
+                    DemoExamEntities.GetContext().SaveChanges();
+                    MessageBox.Show("Заявка успешно отправлена");
+                    ClientWindow clientWindow = new ClientWindow();
+                    this.Close();
+                    clientWindow.Show();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                }
+            }
+        }
+    }
+}
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+
+namespace Polus
+{
+    /// <summary>
+    /// Логика взаимодействия для DestributionWindow.xaml
+    /// </summary>
+    public partial class DestributionWindow : Window
+    {
+        Ticket currentticket = new Ticket();
+        public DestributionWindow(Ticket selectedticket)
+        {
+            if (selectedticket != null) currentticket = selectedticket;
+            DataContext = currentticket;
+            InitializeComponent();
+            Problem.Text = currentticket.problemDescryption.ToString();
+            Client.Text = DemoExamEntities.GetContext().Client.Where(x=>x.Client_id==currentticket.clientID).Select(x=>x.FIO).FirstOrDefault();
+            TechType.Text = DemoExamEntities.GetContext().OrgTechType.Where(x => x.Type_id == currentticket.orgTechType).Select(x => x.Name_of_type).FirstOrDefault();
+            Model.Text = DemoExamEntities.GetContext().OrgTechModel.Where(x => x.Model_id == currentticket.orgTechModel).Select(x => x.Name_of_model).FirstOrDefault();
+            CreateDate.Text = currentticket.startDate.ToString();
+            MasterBox.Text = DemoExamEntities.GetContext().Employee.Where(x => x.Employee_id == currentticket.masterID).Select(x => x.FIO).FirstOrDefault();
+            Status.Text = DemoExamEntities.GetContext().Ticket_status.Where(x => x.Status_id == currentticket.Ticket_status).Select(x => x.Name_of_status).FirstOrDefault();
+            CloseDate.Text = currentticket.completionDate.ToString();
+            Priority.Text= DemoExamEntities.GetContext().Priority.Where(x => x.Priority_id == currentticket.Priority).Select(x => x.Name_of_priority).FirstOrDefault();
+            if (currentticket.completionDate == null||currentticket.completionDate.ToString()=="")
+            {
+                CloseDate.Visibility= Visibility.Collapsed;
+            }
+
+            MasterBox.ItemsSource= DemoExamEntities.GetContext().Employee.Where(x=>x.Role==2).Select(x=>x.FIO).ToList();
+            Priority.ItemsSource = DemoExamEntities.GetContext().Priority.Select(x => x.Name_of_priority).ToList();
+            
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (MasterBox.Text == "")
+            {
+                MessageBox.Show("Заполните все поля");
+            }
+            if (Priority.Text == "")
+            {
+                MessageBox.Show("Заполните все поля");
+            }
+            if ((currentticket.Ticket_id == 0)) DemoExamEntities.GetContext().Ticket.Add(currentticket);
+
+            if(Status.SelectedIndex+1==3)
+            {
+                currentticket.completionDate= DateTime.Now;
+            }
+            else
+            {
+                currentticket.completionDate =null;
+            }
+            try
+            {
+                currentticket.masterID = DemoExamEntities.GetContext().Employee.Where(x => x.FIO.Trim() == MasterBox.Text.Trim()).Select(x => x.Employee_id).FirstOrDefault();
+                currentticket.Priority = DemoExamEntities.GetContext().Priority.Where(x => x.Name_of_priority.Trim() == Priority.Text.Trim()).Select(x => x.Priority_id).FirstOrDefault();
+                currentticket.Ticket_status = DemoExamEntities.GetContext().Ticket_status.Where(x => x.Name_of_status.Trim() == Status.Text.Trim()).Select(x => x.Status_id).FirstOrDefault();
+                DemoExamEntities.GetContext().SaveChanges();
+                MessageBox.Show("Данные успешно обновлены!");
+                ManagerWindow managerWindow = new ManagerWindow();
+                this.Close();
+                managerWindow.Show();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка, проверьте введенные данные!");
+            }
+
+        }
+
+        private void RetBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ManagerWindow managerWindow = new ManagerWindow();
+            this.Close();
+            managerWindow.Show();
+        }
+    }
+}
+
+
+
+using Polus;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Effects;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+
+namespace Polus
+{
+    /// <summary>
+    /// Логика взаимодействия для ReportWindow.xaml
+    /// </summary>
+    public partial class ReportWindow : Window
+    {
+        private Ticket currentticket = new Ticket();
+        
+        public ReportWindow(Ticket selectedticket)
+        {
+            InitializeComponent();
+            if (selectedticket != null) currentticket = selectedticket;
+            DataContext = currentticket;
+            InitializeComponent();
+            Problem.Text = currentticket.problemDescryption.ToString();
+            Client.Text = DemoExamEntities.GetContext().Client.Where(x => x.Client_id == currentticket.clientID).Select(x => x.FIO).FirstOrDefault();
+            TechType.Text = DemoExamEntities.GetContext().OrgTechType.Where(x => x.Type_id == currentticket.orgTechType).Select(x => x.Name_of_type).FirstOrDefault();
+            Model.Text = DemoExamEntities.GetContext().OrgTechModel.Where(x => x.Model_id == currentticket.orgTechModel).Select(x => x.Name_of_model).FirstOrDefault();
+            CreateDate.Text = currentticket.startDate.ToString();
+            MasterBox.Text = DemoExamEntities.GetContext().Employee.Where(x => x.Employee_id == currentticket.masterID).Select(x => x.FIO).FirstOrDefault();
+            Status.Text = DemoExamEntities.GetContext().Ticket_status.Where(x => x.Status_id == currentticket.Ticket_status).Select(x => x.Name_of_status).FirstOrDefault();
+            CloseDate.Text = currentticket.completionDate.ToString();
+            Priority.Text = DemoExamEntities.GetContext().Priority.Where(x => x.Priority_id == currentticket.Priority).Select(x => x.Name_of_priority).FirstOrDefault();
+            Comment.Text = DemoExamEntities.GetContext().Ticket_Сomment.Where(x => x.Ticket_id == currentticket.Ticket_id).Select(x => x.Message).FirstOrDefault();
+           
+            if (currentticket.completionDate == null || currentticket.completionDate.ToString() == "")
+            {
+                CloseDate.Visibility = Visibility.Collapsed;
+            }
+
+            if (Parts.Text=="")
+            {
+                Parts.Text = "запчастей не потребовалось";
+            }
+        }
+
+        private void Return_Click(object sender, RoutedEventArgs e)
+        {
+            ManagerWindow managerWindow = new ManagerWindow();
+            this.Close();
+            managerWindow.Show();
+        }
+    }
+}
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+using Test;
+
+namespace Polus
+{
+    /// <summary>
+    /// Логика взаимодействия для ResponseWindow.xaml
+    /// </summary>
+    public partial class ResponseWindow : Window
+    {
+        private Ticket currentticket = new Ticket();
+
+        public ResponseWindow(Ticket selectedticket)
+        {
+            InitializeComponent();
+            if (selectedticket != null) currentticket = selectedticket;
+            DataContext = currentticket;
+            InitializeComponent();
+            Problem.Text = currentticket.problemDescryption.ToString();
+            Client.Text = DemoExamEntities.GetContext().Client.Where(x => x.Client_id == currentticket.clientID).Select(x => x.FIO).FirstOrDefault();
+            TechType.Text = DemoExamEntities.GetContext().OrgTechType.Where(x => x.Type_id == currentticket.orgTechType).Select(x => x.Name_of_type).FirstOrDefault();
+            Model.Text = DemoExamEntities.GetContext().OrgTechModel.Where(x => x.Model_id == currentticket.orgTechModel).Select(x => x.Name_of_model).FirstOrDefault();
+            CreateDate.Text = currentticket.startDate.ToString();
+            MasterBox.Text = DemoExamEntities.GetContext().Employee.Where(x => x.Employee_id == currentticket.masterID).Select(x => x.FIO).FirstOrDefault();
+            Status.Text = DemoExamEntities.GetContext().Ticket_status.Where(x => x.Status_id == currentticket.Ticket_status).Select(x => x.Name_of_status).FirstOrDefault();
+            CloseDate.Text = currentticket.completionDate.ToString();
+            Priority.Text = DemoExamEntities.GetContext().Priority.Where(x => x.Priority_id == currentticket.Priority).Select(x => x.Name_of_priority).FirstOrDefault();
+            Comment.Text = DemoExamEntities.GetContext().Ticket_Сomment.Where(x => x.Ticket_id == currentticket.Ticket_id).Select(x => x.Message).FirstOrDefault();
+
+            if (currentticket.completionDate == null || currentticket.completionDate.ToString() == "")
+            {
+                CloseDate.Visibility = Visibility.Collapsed;
+            }
+
+        }
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            
+            if ((currentticket.Ticket_id == 0)) DemoExamEntities.GetContext().Ticket.Add(currentticket);
+            string comment = Comment.Text.Trim();
+            if (Comment == null)
+            {
+                if(comment.Length<=3)
+                {
+                    MessageBox.Show("Напишите комментарий");
+                }
+                Ticket_Сomment ticket = new Ticket_Сomment(comment, Repository.employee.Employee_id, currentticket.Ticket_id);
+                DemoExamEntities.GetContext().Ticket_Сomment.Add(ticket);
+            }
+
+            else if (Comment != null || comment.Length >= 3)
+            {
+                currentticket.repairParts = Parts.Text.Trim();  
+            }
+
+            try
+            {
+                DemoExamEntities.GetContext().SaveChanges();
+                MessageBox.Show("Данные отправлены");
+                EmployeeWindow managerWindow = new EmployeeWindow();
+                this.Close();
+                managerWindow.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка, проверьте введенные данные!");
+            }
+
+        }
+        private void Return_Click(object sender, RoutedEventArgs e)
+        {
+            EmployeeWindow managerWindow = new EmployeeWindow();
+            this.Close();
+            managerWindow.Show();
+        }
+    }
+}
